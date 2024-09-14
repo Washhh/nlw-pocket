@@ -15,3 +15,9 @@ Repositório do projeto NLW Pocket da Rocketseat
 - DATE, dentro do SQL, pega apenas a data, excluindo outras informações, como hora e minutos.
 - JSON_AGG, em alguns bancos, como o PostgreSQL, essa função no SQL pega um retorno e converte para um array, usado com o JSON_BUILD_OBJECT, permite retornar array de objetos construidos durante a consulta.
 - JSON_OBJECT_AGG, cria um objeto
+
+
+### Anotações importantes - Frontend:
+- Os espaçamentos do Tailwind.css são em múltiplos de 4.
+- Utilizar [] em uma varíavel quando não há valor mapeado disponível, ex: max-w-[400px]
+- Criar componentes para svgs pequenos é uma boa opção para o carregamento dos mesmos no html
