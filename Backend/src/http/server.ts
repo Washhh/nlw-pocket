@@ -1,72 +1,30 @@
 import fastify from "fastify";
-import { createGoal } from "../functions/createGoal";
 import {
   serializerCompiler,
   validatorCompiler,
   ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import z from "zod";
-import { getWeekPendingGoals } from "../functions/getWeekPending";
-import { createGoalCompletion } from "../functions/createGoalCompletion";
+import { createCompletionRoute } from "./routes/createCompletionRoute";
+import { createGoalRoute } from "./routes/createGoalRoute";
+import { getPendingGoalsRoute } from "./routes/getPendingGoalsRoute";
+import { getWeekSummaryRoute } from "./routes/getWeekSummaryRoute";
+import fastifyCors from "@fastify/cors";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+app.register(fastifyCors, {
+  origin: "*",
+});
 
 // Add schema validator and serializer
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 // Rotas
-
-// POSTs
-// Criar meta
-app.post(
-  "/goals",
-  {
-    schema: {
-      body: z.object({
-        title: z.string(),
-        desiredWeeklyFrequency: z.number().int().min(1).max(7),
-      }),
-    },
-  },
-  async (req, res) => {
-    const { title, desiredWeeklyFrequency } = req.body;
-
-    const goal = await createGoal({
-      title,
-      desiredWeeklyFrequency,
-    });
-
-    res.status(201).send(goal);
-  }
-);
-
-app.post(
-  "/goal-completions",
-  {
-    schema: {
-      body: z.object({
-        goalId: z.string(),
-      }),
-    },
-  },
-  async (req, res) => {
-    const { goalId } = req.body;
-    const goalCompletions = await createGoalCompletion({ goalId });
-
-    res.status(201).send(goalCompletions);
-  }
-);
-
-// GETs
-// Buscar metas e retornar seus valores de frequência para comparação
-app.get("/pending-goals", async (req, res) => {
-  const { pendingGoals } = await getWeekPendingGoals();
-
-  res.status(200).send({
-    pendingGoals,
-  });
-});
+app.register(createGoalRoute);
+app.register(createCompletionRoute);
+app.register(getPendingGoalsRoute);
+app.register(getWeekSummaryRoute);
 
 app
   .listen({
