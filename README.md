@@ -21,3 +21,9 @@ Repositório do projeto NLW Pocket da Rocketseat
 - Os espaçamentos do Tailwind.css são em múltiplos de 4.
 - Utilizar [] em uma varíavel quando não há valor mapeado disponível, ex: max-w-[400px]
 - Criar componentes para svgs pequenos é uma boa opção para o carregamento dos mesmos no html
+- Quando em um formulário, houver um componente que não é um input nativo, na react-hook-forms,usar o componente Controller resolve esse problema para a hora de submeter os valores.
+- As ferramentas do Zod ajudam a deixar o código organizado e permite centralizar nele informações que vão sendo reaproveitadas.
+
+
+### Extra
+- Crie a parte de desfazer uma meta, já que alguma meta pode ser completada mais de uma vez no dia, é interessante ter a opção de excluir uma que você tenha registrado errado.
