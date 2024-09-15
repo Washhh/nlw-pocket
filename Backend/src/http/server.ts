@@ -1,3 +1,4 @@
+import fastifyCors from "@fastify/cors";
 import fastify from "fastify";
 import {
   serializerCompiler,
@@ -8,7 +9,7 @@ import { createCompletionRoute } from "./routes/createCompletionRoute";
 import { createGoalRoute } from "./routes/createGoalRoute";
 import { getPendingGoalsRoute } from "./routes/getPendingGoalsRoute";
 import { getWeekSummaryRoute } from "./routes/getWeekSummaryRoute";
-import fastifyCors from "@fastify/cors";
+import { deleteGoalCompletionRoute } from "./routes/deleteGoalCompletionRoute";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -25,6 +26,7 @@ app.register(createGoalRoute);
 app.register(createCompletionRoute);
 app.register(getPendingGoalsRoute);
 app.register(getWeekSummaryRoute);
+app.register(deleteGoalCompletionRoute);
 
 app
   .listen({
